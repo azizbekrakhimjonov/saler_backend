@@ -24,9 +24,9 @@ from blog.views import ValidatePromocodeView
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Employee API",
+        title="test API",
         default_version='v1',
-        description="API documentation for the Employee app",
+        description="API documentation for the customers app",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@example.com"),
         license=openapi.License(name="BSD License"),
