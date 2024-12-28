@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Promocode(models.Model):
     code = models.CharField(max_length=6, unique=True, verbose_name="Promo Code")
     category = models.CharField(max_length=50, verbose_name="Category")
@@ -14,28 +15,13 @@ class Promocode(models.Model):
         verbose_name_plural = "Promocodes"
 
 
-from django.core.management.base import BaseCommand
-from random import choices
-from string import ascii_uppercase, digits
+class User(models.Model):
+    telegram_id = models.CharField(max_length=100, unique=True)
+    fullname = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+    address = models.TextField()
+    is_registered = models.BooleanField(default=False)
+    points = models.IntegerField(default=5)  # Ro'yxatdan o'tganida 5 ball beriladi
 
-class Command(BaseCommand):
-    help = "Generate and populate promocodes"
-
-    def handle(self, *args, **kwargs):
-        categories = {
-            'category1': 5,
-            'category2': 10,
-            'category3': 15,
-            # Add more categories as needed
-        }
-
-        for category, point in categories.items():
-            for _ in range(100):  # Generate 100 promocodes per category
-                code = ''.join(choices(ascii_uppercase + digits, k=6))
-                Promocode.objects.get_or_create(
-                    code=code,
-                    defaults={'category': category, 'point': point}
-                )
-
-        self.stdout.write(self.style.SUCCESS("Promocodes generated successfully!"))
-
+    def __str__(self):
+        return self.fullname
